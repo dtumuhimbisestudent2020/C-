@@ -1,0 +1,1159 @@
+public partial class Form2 : Form
+    {
+        public Form2(string rights)
+        {
+            InitializeComponent();
+            useraccountsdb_results();
+            storagedb_results();
+            inventorydb_results();
+            itemdb_results();
+            supplierdb_results();
+            supplieridcombo();
+            storageidcombo();
+            itemidcombo();
+            label29.Text = rights;
+            if (label29.Text!="admin")
+            {
+                uSERACCOUNTSToolStripMenuItem.Enabled=sUPPLIERToolStripMenuItem.Enabled=sTORAGEToolStripMenuItem.Enabled=false;
+            }
+
+        }
+        void supplieridcombo()
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM supplier ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+            try
+            {
+                connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                myReader = cmdDatabase.ExecuteReader();
+                while (myReader.Read())
+                {
+                    String sname = myReader.GetString("supplierid");
+                    comboBox5.Items.Add(sname);
+
+                }
+                myReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        void itemidcombo()
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM item ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+            try
+            {
+                connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                myReader = cmdDatabase.ExecuteReader();
+                while (myReader.Read())
+                {
+                    String sname = myReader.GetString("itemid");
+                    comboBox3.Items.Add(sname);
+
+                }
+                myReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        void storageidcombo()
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM storage ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+            try
+            {
+                connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                myReader = cmdDatabase.ExecuteReader();
+                while (myReader.Read())
+                {
+                    String sname = myReader.GetString("storageid");
+                    comboBox2.Items.Add(sname);
+
+                }
+                myReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public class result
+        {
+            public virtual void sms()
+            {
+                MessageBox.Show("success");
+            }
+        }
+        public class dataresult : result
+        {
+            public override void sms()
+            {
+                MessageBox.Show("data has been saved in the database");
+            }
+        }
+        public class errorresult : result
+        {
+            public override void sms()
+            {
+                MessageBox.Show("no errors detected");
+            }
+        }
+        void storagedb_results() {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM storage ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                storagedata.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        void supplierdb_results()
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM supplier ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                supplierdata.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        void useraccountsdb_results()
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM useraccounts ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                users.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        void inventorydb_results()
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM inventory ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                inventorydata.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        void itemdb_results()
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM item ";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                itemdata.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "INSERT INTO useraccounts(username,password,role) VALUES('" + this.textBox1.Text + "','" + this.textBox2.Text + "','" + this.comboBox1.Text + "')";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                useraccountsdb_results();
+                result[] dobj = new result[4];
+                dobj[0] = new result();
+                dobj[1] = new dataresult();
+                dobj[2] = new errorresult();
+                foreach (result n in dobj)
+                {
+                    n.sms();
+                }
+
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.textBox1.Enabled = this.textBox2.Enabled = true;
+            this.textBox1.Text = this.textBox2.Text = this.textBox3.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "UPDATE useraccounts SET password='" + this.textBox2.Text + "' WHERE userid='" + this.textBox3.Text + "'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("saved");
+                useraccountsdb_results();
+                textBox1.Enabled = true;
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "DELETE FROM useraccounts WHERE userid='" + this.textBox3.Text + "'";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("Deleted");
+                useraccountsdb_results();
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        struct conn
+        {
+            //using the structure concept for the database connection
+            public string server;
+            public string database;
+            public string uid;
+            public string password;
+
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM useraccounts WHERE CONCAT (`userid`,`username`,`password`) LIKE '%" + this.textBox4.Text + "%'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                users.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void users_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            textBox1.Enabled = false;
+            textBox3.Text = users.CurrentRow.Cells[0].Value.ToString();
+            textBox1.Text = users.CurrentRow.Cells[1].Value.ToString();
+            textBox2.Text = users.CurrentRow.Cells[2].Value.ToString();
+        }
+        private void iNVENTORYToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            inventory.Width = 1000;
+            storage.Width = supplier.Width = useraccounts.Width = item.Width = 0;
+        }
+
+        private void sTORAGEToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            storage.Width = 1000;
+            inventory.Width = supplier.Width = useraccounts.Width = item.Width = 0;
+        }
+
+        private void sUPPLIERToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            supplier.Width = 1000;
+            storage.Width = inventory.Width = useraccounts.Width = item.Width = 0;
+        }
+
+        private void uSERACCOUNTSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            useraccounts.Width = 1000;
+            item.Width = inventory.Width = supplier.Width = storage.Width = 0;
+           
+        }
+        private void iTEMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            useraccounts.Width = inventory.Width = supplier.Width = useraccounts.Width = 0;
+            item.Width = 1000;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            exportgridtopdfusers(users, "type here");
+        }
+        public void exportgridtopdfusers(DataGridView dgw, string filename)
+        {
+            iTextSharp.text.Font fontTitle = FontFactory.GetFont("Microsoft Sans Serif", 18, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+
+            iTextSharp.text.Image PNG = iTextSharp.text.Image.GetInstance(@"C:\Users\Ronnie\Documents\Visual Studio 2015\Projects\HostelRecordsManagementSystem\HostelRecordsManagementSystem\images\usjm.jpg");
+            PNG.ScalePercent(25);
+
+            Paragraph title = new Paragraph("USJM STORE AND INVENTORY MANAGEMENT SYSTEM " + "\n report \n", fontTitle);
+            title.Alignment = Element.ALIGN_CENTER;
+
+            title.SpacingAfter = 15f;
+
+
+            iTextSharp.text.Font fontTable = FontFactory.GetFont("Arial", 7, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+
+            PdfPTable table = new PdfPTable(itemdata.Columns.Count);
+            table.SpacingBefore = 45f;
+            table.WidthPercentage = 100;
+            /*table.TotalWidth = 400f;/*216f;*/
+            table.DefaultCell.Phrase = new Phrase() { Font = fontTable };
+
+            for (int j = 0; j < itemdata.Columns.Count; j++)
+            {
+
+                table.AddCell(new Phrase(itemdata.Columns[j].HeaderText.ToUpper(), fontTable));
+
+            }
+            table.HeaderRows = 1;
+            for (int i = 0; i < itemdata.Rows.Count; i++)
+            {
+                for (int k = 0; k < itemdata.Columns.Count; k++)
+                {
+                    if (itemdata[k, i].Value != null)
+                    {
+                        table.AddCell(new Phrase(itemdata[k, i].Value.ToString(), fontTable));
+                    }
+                }
+            }
+            var savefiledialoge = new SaveFileDialog();
+            savefiledialoge.FileName = filename;
+            savefiledialoge.DefaultExt = ".pdf";
+            if (savefiledialoge.ShowDialog() == DialogResult.OK)
+            {
+                using (FileStream stream = new FileStream(savefiledialoge.FileName, FileMode.Create))
+                {
+                    Document doc = new Document(iTextSharp.text.PageSize.A4.Rotate());
+                    PdfWriter.GetInstance(doc, stream);
+                    doc.Open();
+                    doc.Add(PNG);
+                    doc.Add(title);
+                    doc.Add(table);
+                    doc.Close();
+                    stream.Close();
+                    MessageBox.Show("successfully downloaded");
+                }
+            }
+        }
+        //storage
+        private void button22_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "INSERT INTO storage(storageid,storage_category,position,description) VALUES('" + this.textBox16.Text + "','" + this.textBox13.Text + "','" + this.textBox14.Text + "','" + this.textBox21.Text + "')";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                result[] dobj = new result[4];
+                dobj[0] = new result();
+                dobj[1] = new dataresult();
+                dobj[2] = new errorresult();
+                foreach (result n in dobj)
+                {
+                    n.sms();
+                }
+
+                storagedb_results();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            this.textBox16.Enabled = true;
+            this.textBox16.Text = this.textBox13.Text = this.textBox14.Text = this.textBox21.Text = "";
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "UPDATE storage SET storage_category='" + this.textBox13.Text + "',position='" + this.textBox14.Text + "',description='" + this.textBox21.Text + "' WHERE storageid='" + this.textBox16.Text + "'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("saved");
+                storagedb_results();
+                textBox1.Enabled = true;
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "DELETE FROM storage WHERE storageid='" + this.textBox16.Text + "'";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("Deleted");
+                storagedb_results();
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM storage WHERE CONCAT (`storageid`,`storage_category`,`position`,`description`) LIKE '%" + this.textBox15.Text + "%'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                storagedata.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void storagedata_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            textBox16.Enabled = false;
+            textBox16.Text = storagedata.CurrentRow.Cells[0].Value.ToString();
+            textBox13.Text = storagedata.CurrentRow.Cells[1].Value.ToString();
+            textBox14.Text = storagedata.CurrentRow.Cells[2].Value.ToString();
+            textBox21.Text = storagedata.CurrentRow.Cells[3].Value.ToString();
+        }
+        //supplier
+        private void button28_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "INSERT INTO supplier(supplierid,supplier_name,contact,email,address) VALUES('" + this.textBox20.Text + "','" + this.textBox17.Text + "','" + this.textBox18.Text + "','" + this.textBox22.Text + "','" + this.textBox23.Text + "')";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                supplierdb_results();
+                result[] dobj = new result[4];
+                dobj[0] = new result();
+                dobj[1] = new dataresult();
+                dobj[2] = new errorresult();
+                foreach (result n in dobj)
+                {
+                    n.sms();
+                }
+
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            this.textBox20.Enabled = true;
+            this.textBox20.Text = this.textBox17.Text = this.textBox18.Text = this.textBox22.Text = this.textBox23.Text = "";
+        }
+
+        private void button30_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "UPDATE supplier SET supplier_name='" + this.textBox17.Text + "',contact='" + this.textBox18.Text + "',email='" + this.textBox22.Text + "',address='" + this.textBox23.Text + "' WHERE supplierid='" + this.textBox20.Text + "'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("saved");
+                supplierdb_results();
+                textBox1.Enabled = true;
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "DELETE FROM supplier WHERE supplierid='" + this.textBox20.Text + "'";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("Deleted");
+                supplierdb_results();
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM supplier WHERE CONCAT (`supplierid`,`supplier_name`,`contact`,`email`,`address`) LIKE '%" + this.textBox19.Text + "%'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                supplierdata.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void supplierdata_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            textBox20.Enabled = false;
+            textBox20.Text = supplierdata.CurrentRow.Cells[0].Value.ToString();
+            textBox17.Text = supplierdata.CurrentRow.Cells[1].Value.ToString();
+            textBox18.Text = supplierdata.CurrentRow.Cells[2].Value.ToString();
+            textBox22.Text = supplierdata.CurrentRow.Cells[3].Value.ToString();
+            textBox23.Text = supplierdata.CurrentRow.Cells[4].Value.ToString();
+        }
+        //item
+        private void button10_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "INSERT INTO item(itemid,item_name,description,storageid,supplierid) VALUES('" + this.textBox8.Text + "','" + this.textBox5.Text + "','" + this.textBox6.Text + "','" + this.comboBox2.Text + "','" + this.comboBox5.Text + "')";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                itemdb_results();
+                result[] dobj = new result[4];
+                dobj[0] = new result();
+                dobj[1] = new dataresult();
+                dobj[2] = new errorresult();
+                foreach (result n in dobj)
+                {
+                    n.sms();
+                }
+
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            textBox8.Enabled = true;
+            textBox8.Text = textBox5.Text = textBox6.Text = comboBox2.Text = comboBox5.Text = "";
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "UPDATE item SET item_name='" + this.textBox5.Text + "',description='" + this.textBox6.Text + "',storageid='" + this.comboBox2.Text + "',supplierid='" + this.comboBox5.Text + "' WHERE itemid='" + this.textBox8.Text + "'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("saved");
+                itemdb_results();
+                textBox8.Enabled = true;
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "DELETE FROM item WHERE itemid='" + this.textBox8.Text + "'";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("Deleted");
+                itemdb_results();
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM item WHERE CONCAT (`itemid`,`item_name`,`description`,`storageid`,`supplierid`) LIKE '%" + this.textBox7.Text + "%'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                itemdata.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void itemdata_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            textBox8.Enabled = false;
+            textBox8.Text = itemdata.CurrentRow.Cells[0].Value.ToString();
+            textBox5.Text = itemdata.CurrentRow.Cells[1].Value.ToString();
+            textBox6.Text = itemdata.CurrentRow.Cells[2].Value.ToString();
+            comboBox2.Text = itemdata.CurrentRow.Cells[3].Value.ToString();
+            comboBox5.Text = itemdata.CurrentRow.Cells[4].Value.ToString();
+
+        }
+        //inventory
+        private void button16_Click(object sender, EventArgs e)
+        {
+            int a;
+            string text;
+            bool parseOkay;
+            text = textBox9.Text;
+            parseOkay = int.TryParse(text, out a);
+            if (parseOkay != true)
+            {
+                errorProvider1.SetError(textBox9, "invalid input");
+                return;
+
+            }
+            else
+            {
+                conn dataconnection = new conn();
+                dataconnection.server = "localhost";
+                dataconnection.database = "inventory_management_system";
+                dataconnection.uid = "root";
+                dataconnection.password = "";
+                string connectionString;
+                connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+                string query = "INSERT INTO inventory(inventoryid,qty,status,itemid) VALUES('" + this.textBox12.Text + "','" + this.textBox9.Text + "','" + this.comboBox4.Text + "','" + this.comboBox3.Text + "')";
+
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+                MySqlDataReader myReader;
+
+                try
+                {
+                    connection.Open();
+                    myReader = cmdDatabase.ExecuteReader();
+                    inventorydb_results();
+                    result[] dobj = new result[4];
+                    dobj[0] = new result();
+                    dobj[1] = new dataresult();
+                    dobj[2] = new errorresult();
+                    foreach (result n in dobj)
+                    {
+                        n.sms();
+                    }
+
+
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            textBox12.Enabled = true;
+            textBox12.Text = textBox9.Text = comboBox4.Text = comboBox3.Text = "";
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "UPDATE inventory SET qty='" + this.textBox9.Text + "', status='" + this.comboBox4.Text + "',itemid='" + this.comboBox3.Text + "' WHERE inventoryid='" + this.textBox12.Text + "'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("saved");
+                inventorydb_results();
+                textBox8.Enabled = true;
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "DELETE FROM inventory WHERE inventoryid='" + this.textBox12.Text + "'";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            MySqlDataReader myReader;
+
+            try
+            {
+                connection.Open();
+                myReader = cmdDatabase.ExecuteReader();
+                MessageBox.Show("Deleted");
+                inventorydb_results();
+                while (myReader.Read())
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            conn dataconnection = new conn();
+            dataconnection.server = "localhost";
+            dataconnection.database = "inventory_management_system";
+            dataconnection.uid = "root";
+            dataconnection.password = "";
+            string connectionString;
+            connectionString = "SERVER=" + dataconnection.server + ";" + "DATABASE=" + dataconnection.database + ";" + "UID=" + dataconnection.uid + ";" + "PASSWORD=" + dataconnection.password + ";";
+            string query = "SELECT * FROM inventory WHERE CONCAT (`inventoryid`,`qty`,`status`,`itemid`) LIKE '%" + this.textBox12.Text + "%'";
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            MySqlCommand cmdDatabase = new MySqlCommand(query, connection);
+            //MySqlDataReader myReader;
+            try
+            {
+                //connection.Open();
+                MySqlDataAdapter MyAdapter = new MySqlDataAdapter();
+                MyAdapter.SelectCommand = cmdDatabase;
+                DataTable dTable = new DataTable();
+
+                MyAdapter.Fill(dTable);
+                inventorydata.DataSource = dTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void inventorydata_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            textBox12.Enabled = false;
+            textBox12.Text = inventorydata.CurrentRow.Cells[0].Value.ToString();
+            textBox9.Text = inventorydata.CurrentRow.Cells[1].Value.ToString();
+            comboBox4.Text = inventorydata.CurrentRow.Cells[2].Value.ToString();
+            comboBox3.Text = inventorydata.CurrentRow.Cells[3].Value.ToString();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            exportgridtopdfusers(itemdata, "type here");
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBox1.Text = "admin";
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBox1.Text = "user";
+        }
+
+        private void sIGNOUTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1 f1 = new Form1();
+            f1.Show();
+            this.Close();
+        }
+    }
+
+
+    
